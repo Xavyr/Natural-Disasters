@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
   // Dispatch actions 
 });
 
-class MainContainer extends Component {
+class ChartsContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -25,4 +25,4 @@ class MainContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ChartsContainer);

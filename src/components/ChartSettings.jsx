@@ -10,7 +10,7 @@ const paperStyle = {
   display: 'inline-block',
 };
 
-const MapSettings = (props) => {
+const ChartSettings = (props) => {
   return (
     <Paper style={paperStyle} zDepth={1}>
       <TextField hintText="Country" fullWidth={true} />
@@ -19,4 +19,4 @@ const MapSettings = (props) => {
   );
 };
 
-export default MapSettings;
+export default ChartSettings;
