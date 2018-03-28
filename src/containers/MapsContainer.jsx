@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
+import MapSettings from '../components/MapSettings.jsx';
 
 const mapStateToProps = store => ({
   // Pull desired properties from state object into props
@@ -18,10 +19,8 @@ class MainContainer extends Component {
   
   render() {
     return(
-      <div className="container">
-        <h1>Coming Soon... Massive Disaster</h1>
-        <p>Dummy state test: {this.props.dummyState}</p>
-        {/* ADD COMPONENTS */}
+      <div>
+        <MapSettings />
       </div>
     )
   }
