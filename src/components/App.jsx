@@ -16,9 +16,6 @@ import Maps from './Maps.jsx';
 import Charts from './Charts.jsx';
 import About from './About.jsx';
 
-const style = {
-  margin: 12,
-};
 class App extends React.Component {
 	render() {
 		return (
