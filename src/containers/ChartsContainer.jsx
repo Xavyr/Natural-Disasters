@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store';
-import MapSettings from '../components/MapSettings.jsx';
+import ChartSettings from '../components/ChartSettings.jsx';
 
 const mapStateToProps = store => ({
   // Pull desired properties from state object into props
@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
   // Dispatch actions 
 });
 
-class MapsContainer extends Component {
+class ChartsContainer extends Component {
   constructor(props) {
     super(props);
   }
@@ -19,10 +19,10 @@ class MapsContainer extends Component {
   render() {
     return(
       <div>
-        <MapSettings />
+        <ChartSettings />
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ChartsContainer);
