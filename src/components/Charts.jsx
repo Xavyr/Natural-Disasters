@@ -1,8 +1,9 @@
 import React from 'react';
+import ChartsContainer from '../containers/ChartsContainer.jsx'
 
 const Charts = () => (
 	<div>
-		<h2>Charts</h2>
+		<ChartsContainer />
 	</div>
 );
 
