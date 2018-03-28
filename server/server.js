@@ -29,7 +29,7 @@ type Query {
   disastersByCountryNameTimeRangeId(countryName: String!, timeRangeId: Int!): [Disaster]!
   disastersByCountryNameDisasterTypeId(countryName: String!, disasterTypeId: Int!): [Disaster]!
   disastersByDeaths(deaths: Int!): [Disaster]!
-}`;
+}`; 
 
 const resolvers = {
   Query: {
