@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack && live-server public",
     "start-dev": "nodemon server/server.js & webpack-dev-server --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server/resolvers/index.js"
   },
   "repository": {
     "type": "git",
@@ -30,10 +31,11 @@
     "body-parser": "^1.18.2",
     "config": "^1.29.4",
     "css-loader": "^0.28.9",
+    "graphql-yoga": "^1.7.0",
     "live-server": "^1.2.0",
     "mapbox-gl": "^0.44.1",
     "material-ui": "^0.20.0",
-    "mongoose": "^5.0.3",
+    "mongoose": "^5.0.12",
     "node-sass": "^4.7.2",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
@@ -55,6 +57,7 @@
   "devDependencies": {
     "babel-preset-stage-1": "^6.24.1",
     "file-loader": "^1.1.6",
+    "nodemon": "^1.17.2",
     "webpack-dev-server": "^2.11.1"
   }
 }
