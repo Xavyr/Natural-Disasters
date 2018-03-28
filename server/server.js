@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const disastersController = require('./controllers/disastersController');
 const fs = require('fs');
 const Disasters = require('./models/disasterModel');
+var cors = require('cors')
 
 
 //files
@@ -13,6 +14,7 @@ const path = require('path');
 
 //the actual express app instance;
 const app = express();
+app.use(cors());
 
 //parsing body for post routes
 const bodyParser = require('body-parser');
