@@ -1,8 +1,7 @@
-const { GraphQLServer } = require('graphql-yoga');
-const Disaster = require('./../models/disasterModel');
+const { GraphQLServer } = require("graphql-yoga");
+const Disaster = require("./../models/disasterModel");
 
 const typeDefs = `
-
 type Disaster {
   id: ID
   countryName: String,
@@ -18,53 +17,73 @@ type Disaster {
 
 type Query {
   allDisasters: [Disaster!]!
-  Disaster(id: ID!): Disaster!
-  fetchDisaster(id: ID!): Disaster!
-}
-
-type Mutation {
-
-}
-
-
-`;
-
-//, countryName: String, timeRangeId: Int, disasterTypeId: Int
-
-//countryName, timeRangeId, disasterTypeId,
+  Disaster(id: ID!): [Disaster]!
+  disastersByCountryId(id: ID!): [Disaster]!
+  disastersByTimeRangeId(timeRangeId: Int!): [Disaster]!
+  disastersByCountryName(countryName: String): [Disaster]!
+  
+  disastersByCountryNameTimeRangeId(countryName: String!, timeRangeId: Int!): [Disaster]!
+  disastersByCountryNameDisasterTypeId(countryName: String!, disasterTypeId: Int!): [Disaster]!
+  disastersByDeaths(deaths: Int!): [Disaster]!
+}`;
 
 const resolvers = {
   Query: {
     allDisasters: () => {
-      return Disaster.find().then(results => results).catch(err => {console.log('cannot retrieve disasters');});
+      return findMethod({});
     },
-    Disaster: (_, { id }) => {
-      const disaster = Disaster.findOne({_id: id}).then(result => {
-      console.log('result: ', result);
-      return result;
-      }).catch(err => console.log('error'));
+    disastersByCountryId: (_, { id }) => {
+      let obj = { _id: id };
+      return findMethod(obj);
     },
-    fetchDisaster: (_, { id}) => {
-      const disaster = Disaster.findOne({_id: id}).then(result => {
-      console.log('result: ', result);
-      return result._id;
-      }).catch(err => console.log('error'));
+    disastersByCountryName: (_, { countryName }) => {
+      let obj = { countryName };
+      return findMethod(obj);
+    },
+    disastersByTimeRangeId: (_, { timeRangeId }) => {
+      let obj = { timeRangeId };
+      return findMethod(obj);
+    },
+    disastersByCountryNameTimeRangeId: (_, { countryName, timeRangeId }) => {
+      let obj = { countryName, timeRangeId };
+      return findMethod(obj);
+    },
+    disastersByCountryNameDisasterTypeId: (_, { countryName, disasterTypeId }) => {
+      let obj = { countryName, disasterTypeId };
+      return findMethod(obj);
+    },
+    disastersByDeaths: (_, { deaths }) => {
+      let obj = { deaths: {"$gte": deaths }};
+      return findMethod(obj);
     }
-  },
-  Mutation: {
-
   }
-}
+};
+
+const findMethod = obj => {
+  if(typeof obj !== "Object"){
+    obj = {};
+  }
+  return Disaster.find(obj)
+    .then(result => {
+      // console.log(result);
+      return result;
+    })
+    .catch(err => {
+      console.log("error");
+    });
+};
 
 const opts = {
   port: 4000,
-  endpoint: './graphql'
-}
+  endpoint: "./graphql"
+};
 
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
   opts
-})
+});
 
-server.start(() => console.log(`The server is running on http://localhost:4001`));
+server.start(() =>
+  console.log(`The server is running on http://localhost:4000`)
+);
