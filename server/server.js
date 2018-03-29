@@ -97,7 +97,7 @@ const findMethod = obj => {
 const opts = {
   port: 3000,
   endpoint: "/graphql",
-  playground: '/playground',
+  playground: '/playground'
 };
 
 const server = new GraphQLServer({
@@ -117,8 +117,7 @@ server.express.get(
   }
 );
 
-
-server.start(opts,() =>
+server.start(opts, () =>
   console.log(`The server is running on http://localhost:${opts.port}`)
 );
 
