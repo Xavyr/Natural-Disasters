@@ -2,9 +2,9 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 
-import TimeSlider from './map-settings/TimeSlider.jsx';
-import DisasterType from './map-settings/DisasterType.jsx';
-import DisasterStats from './map-settings/DisasterStats.jsx';
+import TimeSlider from './settings/TimeSlider.jsx';
+import DisasterType from './settings/DisasterType.jsx';
+import DisasterStats from './settings/DisasterStats.jsx';
 
 const paperStyle = {
   margin: 20,
@@ -15,7 +15,7 @@ const paperStyle = {
 
 const MapSettings = (props) => {
   return (
-    <Paper style={paperStyle} zDepth={1}>
+    <Paper style={paperStyle} zDepth={1} className="settings">
       <TextField hintText="Country" fullWidth={true} />
       <DisasterType />
       <DisasterStats />
