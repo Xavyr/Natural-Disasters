@@ -16,7 +16,7 @@ const handleNewRequest = (inputVal, props) => {
 	props.changeCountry(inputVal);
 	const queryString = `
 					query{
-				  disastersByCountryName(countryName:"Chile") {
+				  disastersByCountryName(countryName:"${inputVal}") {
 				    id
 				    events
 				    deaths
