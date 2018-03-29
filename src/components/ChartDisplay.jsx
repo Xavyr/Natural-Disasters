@@ -40,6 +40,7 @@ const data = {
 };
 
 const ChartDisplay = props => {
+	console.log('props inside of chartDisplay',props);
   const BarCharts = Object.keys(chartSelections)
     .filter(key => chartSelections[key])
     .map((disasterType, i) => (
@@ -55,11 +56,13 @@ const ChartDisplay = props => {
           <Bar dataKey="Total Deaths" fill="#ffc658" />
         </BarChart>
       </div>
-    )); 
+    ));
+  console.log('Selected country data?\n', JSON.stringify(props.selectedCountryData))
 
   return (
     <div className="display">
-      {BarCharts}
+	    <h2>{props.selectedCountry}</h2>
+	    {BarCharts}
     </div>
   );
 };
