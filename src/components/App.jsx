@@ -25,14 +25,12 @@ class App extends React.Component {
 						<div>
 							<Tabs>
 								<Tab label="Home" containerElement={<Link to="/"/>} />
-								<Tab label="About" containerElement={<Link to="/about"/>} />
 								<Tab label="Maps" containerElement={<Link to="/maps"/>} />
 								<Tab label="Charts" containerElement={<Link to="/charts"/>} />
 							</Tabs>
 						</div>
 						<div className="page">
 							<Route exact path="/" component={Home}/>
-							<Route path="/about" component={About}/>
 							<Route path="/maps" component={Maps}/>
 							<Route path="/charts" component={Charts}/>
 						</div>

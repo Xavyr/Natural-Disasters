@@ -9,13 +9,24 @@ import {
   Legend
 } from 'recharts';
 
-const chartSelections = {
+const disasterTypes = {
   climatological: true,
-  geophysical: true,
-  hydrological: true,
-  meteorological: true
+  geophysical: false,
+  hydrological: false,
+  meteorological: false
 };
 
+/*
+IDs in DB:
+'87-'96 - 1
+'97-'06 - 2
+'07-'16 - 3
+
+Climatological - 3
+Geophysical - 1
+Hydrological - 2
+Meterological - 4 
+*/
 const data = {
   climatological: [
     {decade: '1987-1006', Occurrences: 3, "Total Deaths": 0, "Persons Affected": 0 },
@@ -40,8 +51,8 @@ const data = {
 };
 
 const ChartDisplay = props => {
-  const BarCharts = Object.keys(chartSelections)
-    .filter(key => chartSelections[key])
+  const BarCharts = Object.keys(disasterTypes)
+    .filter(key => disasterTypes[key])
     .map((disasterType, i) => (
       <div key={i}>
         <h3>{disasterType.toUpperCase()}</h3>
