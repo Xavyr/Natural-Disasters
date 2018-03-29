@@ -7,10 +7,10 @@ const initialState = {
 	selectCountryData: null,
   countryList,  // TODO: Populate country list from GET request to database
   disasterTypes: {
-    climatological: true,
-    geophysical: false,
-    hydrological: false,
-    meteorological: false
+    Climatological: true,
+    Geophysical: true,
+    Hydrological: true,
+    Meteorological: true
   }
 };
 
@@ -24,10 +24,26 @@ const chartsReducer = (state = initialState, action) => {
 			  //selectedCountryData: "hello"
 		  };
 	  case types.CHANGE_COUNTRY_DATA: {
-		  console.log('action in action creator for changing country data', action);
+		  const selectedCountryData = {
+        Climatological: [],
+        Geophysical: [],
+        Hydrological: [],
+        Meteorological: [],
+      };
+
+      action.payload.disastersByCountryName.forEach(
+        dataPoint => {
+          selectedCountryData[dataPoint.disasterType].push({
+            decade: dataPoint.timeRange,
+            Occurrences: dataPoint.events,
+            "Total Deaths": dataPoint.deaths
+          });
+        }
+      );
+
 	  	return {
 			  ...state,
-			  selectedCountryData: action.payload,
+			  selectedCountryData
 		  }
 	  }
     default: 
