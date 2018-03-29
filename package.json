@@ -7,8 +7,7 @@
     "runBuild": "webpack",
     "start-dev": "nodemon server/server.js & webpack-dev-server --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server/resolvers/index.js",
-    "start": "nodemon server/server.js"
+    "dev": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
