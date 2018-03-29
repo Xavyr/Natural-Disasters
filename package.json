@@ -4,10 +4,10 @@
   "description": "Simple and modern React boilerplate.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack && live-server public",
-    "start-dev": "nodemon server/server.js & webpack-dev-server --hot",
+    "runBuild": "webpack",
+    "start-dev": "webpack & nodemon server/server.js & webpack-dev-server --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server/resolvers/index.js"
+    "dev": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "config": "^1.29.4",
     "cors": "^2.8.4",
     "css-loader": "^0.28.9",
+    "graphiql": "^0.11.11",
     "graphql-yoga": "^1.7.0",
     "live-server": "^1.2.0",
     "material-ui": "^0.20.0",

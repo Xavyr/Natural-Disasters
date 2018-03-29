@@ -60,9 +60,6 @@ const resolvers = {
 };
 
 const findMethod = obj => {
-  if(typeof obj !== "Object"){
-    obj = {};
-  }
   return Disaster.find(obj)
     .then(result => {
       // console.log(result);

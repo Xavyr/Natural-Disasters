@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions/actions';
 import store from '../store';
 //import { LineChart, Line } from 'recharts';
 import axios from 'axios';
 import ChartSettings from '../components/ChartSettings.jsx';
-import ReactChartkick, { LineChart, PieChart, ScatterChart } from 'react-chartkick'
-import Chart from 'chart.js'
-
-ReactChartkick.addAdapter(Chart);
+import ChartDisplay from '../components/ChartDisplay.jsx';
 
 const mapStateToProps = store => ({
   // Pull desired properties from state object into props
+  selectedCountry: store.charts.selectedCountry,
+	//selectedCountryData: store.charts.selectedCountryData,
+  countryList: store.charts.countryList,
+  chartSelections: store.charts.chartSelections
 });
 
-const mapDispatchToProps = dispatch => ({
-  // Dispatch actions 
-});
+const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 
 
 class ChartsContainer extends Component {
@@ -26,6 +27,7 @@ class ChartsContainer extends Component {
 	  };
 
 	  this.inputDataToState = this.inputDataToState.bind(this);
+	  this.countryDeathAndDisasterType = this.countryDeathAndDisasterType.bind(this);
   }
 
 	inputDataToState(data) {
@@ -34,28 +36,52 @@ class ChartsContainer extends Component {
 	  this.setState(stateCopy);
 	}
 
-	componentDidMount() {
-  	let that = this;
-		axios.get('http://localhost:3000/getDisasters')
-			.then(function (response) {
-				that.inputDataToState(response.data);
-			})
-			.catch(function (error) {
-				console.log(error);
-			});
+	countryDeathAndDisasterType(countryName, disasterTypeId) {
+		// const increaseLikes = `
+		// 	query{
+		//   disastersByCountryNameDisasterTypeId(countryName:"${countryName}", disasterTypeId:${disasterTypeId}) {
+		//     id
+		//     events
+		//     deaths
+		//     timeRange
+		//     timeRangeId
+		//   }
+		// }
+		// `;
+		// fetch('http://localhost:3000/graphql', {
+		// 	method: 'POST',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify({
+		// 		query: increaseLikes,
+		// 	}),
+		// })
+		// 	.then(res => {
+		// 		console.log("this", this);
+		// 		this.inputDataToState(res.json());
+		// 	})
 	}
 
-  render() {
-  	console.log(this.state);
-    return(
-      <div>
-        <ChartSettings />
-	      <LineChart data={{"2017-01-01": 11, "2017-01-02": 6}} />
-	      <PieChart data={[["Blueberry", 44], ["Strawberry", 23]]} />
-	      <ScatterChart data={[[174.0, 80.0], [176.5, 82.3]]} xtitle="Size" ytitle="Population" />
 
+	componentDidMount() {
+
+	}
+
+
+  render() {
+  	//this.countryDeathAndDisasterType("Chile", 1);
+	  console.log(this.props);
+    return(
+      <div className="container">
+        <ChartSettings 
+          countryList={this.props.countryList} 
+          changeCountry={this.props.changeCountry} 
+          chartSelections={this.props.chartSelections}
+        />
+        <ChartDisplay
+	        selectedCountry={this.props.selectedCountry}
+        />
       </div>
-    )
+    );
   }
 }
 

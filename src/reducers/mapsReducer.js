@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   // Initialize state here
-  dummyState: 'dummyState'
 };
 
 const mapsReducer = (state = initialState, action) => {

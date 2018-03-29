@@ -1,7 +1,9 @@
 import React from 'react';
-import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import Paper from 'material-ui/Paper';
 
+import DisasterType from './settings/DisasterType.jsx';
+import DisasterStats from './settings/DisasterStats.jsx';
 
 const paperStyle = {
   margin: 20,
@@ -10,11 +12,16 @@ const paperStyle = {
   display: 'inline-block',
 };
 
-const ChartSettings = (props) => {
+const ChartSettings = props => {
   return (
-    <Paper style={paperStyle} zDepth={1}>
-      <TextField hintText="Country" fullWidth={true} />
-
+    <Paper style={paperStyle} zDepth={1} className="settings">
+      <AutoComplete 
+        hintText="Country" 
+        dataSource={props.countryList}
+        onNewRequest={props.changeCountry}
+      />
+      <DisasterType />
+      {/* <DisasterStats /> */}
     </Paper>
   );
 };
