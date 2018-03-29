@@ -64,21 +64,13 @@ const resolvers = {
       let obj = { countryName, timeRangeId };
       return findMethod(obj);
     },
-    disastersByCountryNameDisasterTypeId: (_, { countryName, disasterTypeId }) => {
+    disastersByCountryNameDisasterTypeId: (
+      _,
+      { countryName, disasterTypeId }
+    ) => {
       let obj = { countryName, disasterTypeId };
       return findMethod(obj);
-	},
-	disastersTotalDeathsByCountryDecade: (_, { countryName, timeRangeId }) => {
-		let obj = { countryName, timeRangeId };
-		return Disaster.aggregate([
-			{ $match: { countryName,timeRangeId} },
-			{ $group: { _id: "$_id", totalDeaths: { $sum: "$deaths" } } },
-			{ $sort: { total: -1 } }
-		  ])
-
-
-		// return findMethod(obj);
-	  },
+    },
     disastersByDeaths: (_, { deaths }) => {
       let obj = { deaths: { $gte: deaths } };
       return findMethod(obj);
@@ -97,13 +89,10 @@ const findMethod = obj => {
     });
 };
 
-const options = {
+const opts = {
   port: 3000,
   endpoint: "/graphql",
   playground: '/playground',
-  subscriptions: '/subscriptions',
-  debug: true,
-  show: true
 };
 
 const server = new GraphQLServer({
@@ -115,7 +104,6 @@ server.express.use(bodyParser.json());
 server.express.use(bodyParser.urlencoded({ extended: true }));
 server.express.use(express.static(path.join(__dirname, "./../public")));
 
-
 server.express.get(
   "/getDisasters",
   disastersController.getDisasters,
@@ -124,36 +112,8 @@ server.express.get(
   }
 );
 
-server.start(options,() =>
-  console.log(`The server is running on http://localhost:${options.port}`)
+server.start(() =>
+  console.log(`The server is running on http://localhost:${opts.port}`)
 );
 
 
-
-
-// //npm modules
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const disastersController = require('./controllers/disastersController');
-// const fs = require('fs');
-// const Disasters = require('./models/disasterModel');
-
-// //files
-// const path = require('path');
-
-// //the actual express app instance;
-// const app = express();
-
-// //parsing body for post routes
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// //pathing to specific files
-// app.use(express.static(path.join(__dirname, './../public')));
-
-// app.get('/getDisasters', disastersController.getDisasters, (req, res) => {
-// 	res.json(res.locals.disasters);
-// });
-
-// app.listen(3000);
