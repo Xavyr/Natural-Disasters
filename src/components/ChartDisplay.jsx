@@ -56,12 +56,13 @@ const ChartDisplay = props => {
           <Bar dataKey="Total Deaths" fill="#ffc658" />
         </BarChart>
       </div>
-    )); 
+    ));
+  console.log('Selected country data?\n', JSON.stringify(props.selectedCountryData))
 
   return (
     <div className="display">
 	    <h2>{props.selectedCountry}</h2>
-      {BarCharts}
+	    {BarCharts}
     </div>
   );
 };

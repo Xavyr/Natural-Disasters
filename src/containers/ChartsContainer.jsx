@@ -11,7 +11,7 @@ import ChartDisplay from '../components/ChartDisplay.jsx';
 const mapStateToProps = store => ({
   // Pull desired properties from state object into props
   selectedCountry: store.charts.selectedCountry,
-	//selectedCountryData: store.charts.selectedCountryData,
+	selectedCountryData: store.charts.selectedCountryData,
   countryList: store.charts.countryList,
   chartSelections: store.charts.chartSelections
 });
@@ -69,16 +69,18 @@ class ChartsContainer extends Component {
 
   render() {
   	//this.countryDeathAndDisasterType("Chile", 1);
-	  console.log(this.props);
+	  console.log(JSON.stringify(this.props.selectedCountryData))
     return(
       <div className="container">
         <ChartSettings 
           countryList={this.props.countryList} 
-          changeCountry={this.props.changeCountry} 
+          changeCountry={this.props.changeCountry}
+          changeCountryData={this.props.changeCountryData}
           chartSelections={this.props.chartSelections}
         />
         <ChartDisplay
 	        selectedCountry={this.props.selectedCountry}
+	        selectedCountryData={this.props.selectedCountryData}
         />
       </div>
     );
