@@ -1,8 +1,9 @@
 import React from 'react';
+import MapsContainer from '../containers/MapsContainer.jsx';
 
 const Maps = () => (
 	<div>
-		<h2>Maps</h2>
+		<MapsContainer />
 	</div>
 );
 

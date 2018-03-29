@@ -1,9 +1,11 @@
 import * as types from '../constants/actionTypes';
 
-/* Define action creators (functions that generate action objects) as named exports below
-    EXAMPLE: 
-    export const setDecade = (event) => {
-      type: types.SET_DECADE,
-      payload: event.target.decade
-    };
-*/
+export const changeCountry = countryName => ({
+  type: types.CHANGE_COUNTRY,
+  payload: countryName
+});
+
+export const changeCountryData = countryData => ({
+	type: types.CHANGE_COUNTRY_DATA,
+	payload: countryData
+});

@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  font-size: 1rem;
+  font-family: Roboto, arial, sans-serif;
+  color: #2B3A42;
+}
+
+h1,h2,h3 {
+  color: #EB7F00;
+}
+
+.page {
+  padding: 50px
+}
+
+.settings {
+  flex: 0 0 250px;
+  height: 400px;
+  position: fixed;
+}
+
+.display {
+  margin-left: 350px;
+  flex: 1 0 auto;
+}
