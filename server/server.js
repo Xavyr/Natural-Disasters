@@ -1,7 +1,7 @@
+
 const { GraphQLServer } = require("graphql-yoga");
 const Disaster = require("./models/disasterModel");
 const express = require("express");
-const path = require("path");
 const bodyParser = require("body-parser");
 const disastersController = require('./controllers/disastersController');
 
@@ -32,6 +32,10 @@ type Query {
   disastersByDeaths(deaths: Int!): [Disaster]!
   disastersTotalDeathsByCountryDecade(countryName: String!, timeRangeId: Int!): [Disaster]!
 }`; 
+
+
+
+const path = require('path');
 
 const resolvers = {
   Query: {
@@ -78,6 +82,7 @@ const resolvers = {
   }
 };
 
+
 const findMethod = obj => {
   return Disaster.find(obj)
     .then(result => {
@@ -115,5 +120,6 @@ server.express.get(
 server.start(opts, () =>
   console.log(`The server is running on http://localhost:${opts.port}`)
 );
+
 
 
