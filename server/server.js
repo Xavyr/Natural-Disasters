@@ -20,6 +20,7 @@ type Disaster {
 }
 
 type Query {
+	countries: [Disaster!]!
   allDisasters: [Disaster!]!
   Disaster(id: ID!): [Disaster]!
   disastersByCountryId(id: ID!): [Disaster]!
@@ -29,11 +30,22 @@ type Query {
   disastersByCountryNameTimeRangeId(countryName: String!, timeRangeId: Int!): [Disaster]!
   disastersByCountryNameDisasterTypeId(countryName: String!, disasterTypeId: Int!): [Disaster]!
   disastersByDeaths(deaths: Int!): [Disaster]!
+  disastersTotalDeathsByCountryDecade(countryName: String!, timeRangeId: Int!): [Disaster]!
 }`; 
 
 const resolvers = {
   Query: {
-    allDisasters: () => {
+	countries: () => {
+		return Disaster.distinct("countryName", {countryName})
+    .then(result => {
+      console.log(result);
+      return result;
+    })
+    .catch(err => {
+      console.log("error");
+    });
+	  },
+	allDisasters: () => {
       return findMethod({});
     },
     disastersByCountryId: (_, { id }) => {
@@ -52,13 +64,21 @@ const resolvers = {
       let obj = { countryName, timeRangeId };
       return findMethod(obj);
     },
-    disastersByCountryNameDisasterTypeId: (
-      _,
-      { countryName, disasterTypeId }
-    ) => {
+    disastersByCountryNameDisasterTypeId: (_, { countryName, disasterTypeId }) => {
       let obj = { countryName, disasterTypeId };
       return findMethod(obj);
-    },
+	},
+	disastersTotalDeathsByCountryDecade: (_, { countryName, timeRangeId }) => {
+		let obj = { countryName, timeRangeId };
+		return Disaster.aggregate([
+			{ $match: { countryName,timeRangeId} },
+			{ $group: { _id: "$_id", totalDeaths: { $sum: "$deaths" } } },
+			{ $sort: { total: -1 } }
+		  ])
+
+
+		// return findMethod(obj);
+	  },
     disastersByDeaths: (_, { deaths }) => {
       let obj = { deaths: { $gte: deaths } };
       return findMethod(obj);
@@ -77,21 +97,24 @@ const findMethod = obj => {
     });
 };
 
-const opts = {
-  port: 4000,
+const options = {
+  port: 3000,
   endpoint: "/graphql",
   playground: '/playground',
+  subscriptions: '/subscriptions',
+  debug: true,
+  show: true
 };
 
 const server = new GraphQLServer({
   typeDefs,
-  resolvers,
-  opts
+  resolvers
 });
 
 server.express.use(bodyParser.json());
 server.express.use(bodyParser.urlencoded({ extended: true }));
 server.express.use(express.static(path.join(__dirname, "./../public")));
+
 
 server.express.get(
   "/getDisasters",
@@ -101,8 +124,8 @@ server.express.get(
   }
 );
 
-server.start(() =>
-  console.log(`The server is running on http://localhost:${opts.port}`)
+server.start(options,() =>
+  console.log(`The server is running on http://localhost:${options.port}`)
 );
 
 
